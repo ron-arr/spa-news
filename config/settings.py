@@ -107,3 +107,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Новости
+NEWS_FRESHNESS_DAYS = 5
+RECENT_NEWS_COUNT = 5

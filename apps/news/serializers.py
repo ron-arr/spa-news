@@ -4,7 +4,17 @@ from rest_framework import serializers
 from apps.news.models import News
 
 
-class NewsSerializer(serializers.ModelSerializer):
+class NewsListSerializer(serializers.ModelSerializer):
+    """ Сериализатор списка новостей """
+
     class Meta:
         model = News
-        fields = ('title', 'name', 'slug', 'title',)
+        fields = ('id', 'title', 'name', 'slug', 'title',)
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    """ Сериализатор новостей """
+
+    class Meta:
+        model = News
+        fields = ('id', 'title', 'name', 'slug', 'title', 'content',)

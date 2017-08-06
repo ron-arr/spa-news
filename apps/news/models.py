@@ -1,4 +1,19 @@
+from django.conf import settings
 from django.db import models
+
+from apps.utils.dates import days_ago
+
+
+class NewsManager(models.Manager):
+    """ Менеджер новостей """
+
+    def actual(self):
+        """ Свежие новости """
+        return self.filter(date__gt=days_ago(settings.NEWS_FRESHNESS_DAYS))
+
+    def archived(self):
+        """ Новости в архиве """
+        return self.filter(date__lte=days_ago(settings.NEWS_FRESHNESS_DAYS))
 
 
 class News(models.Model):
@@ -17,6 +32,8 @@ class News(models.Model):
         verbose_name='Содержание',
         blank=True,
     )
+
+    objects = NewsManager()
 
     class Meta:
         verbose_name = 'Новость'
