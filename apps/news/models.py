@@ -15,6 +15,10 @@ class NewsManager(models.Manager):
         """ Новости в архиве """
         return self.filter(date__lte=days_ago(settings.NEWS_FRESHNESS_DAYS))
 
+    def random(self):
+        """ Случайные новости """
+        return self.actual().order_by('?')
+
 
 class News(models.Model):
     """ Новости """

@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
 from apps.news.models import News
@@ -11,6 +12,7 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     """ Представление новостей """
     queryset = News.objects.all()
     serializer_class = NewsSerializer
+    pagination_class = LimitOffsetPagination
 
     @list_route()
     def actual(self, request):
@@ -29,6 +31,14 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
         """ Последние новости """
         serializer = self.get_serializer(
             News.objects.actual()[:settings.RECENT_NEWS_COUNT],
+            many=True)
+        return Response(serializer.data)
+
+    @list_route()
+    def random(self, request):
+        """ Случайные новости """
+        serializer = self.get_serializer(
+            News.objects.random()[:settings.FOOTER_NEWS_COUNT],
             many=True)
         return Response(serializer.data)
 
