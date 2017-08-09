@@ -45,7 +45,6 @@ export const archived = () => angular.module('app')
                         {params: {page: $transition$.params()['page']}}
                     ).then(
                         function (response) {
-                            console.log(response);
                             return response['data'];
                         });
                 }
