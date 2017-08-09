@@ -1,18 +1,24 @@
 from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from apps.news.models import News
 from apps.news.serializers import NewsSerializer, NewsListSerializer
 
 
+class NewsPageNumberPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 100
+
+
 class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     """ Представление новостей """
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    pagination_class = LimitOffsetPagination
+    pagination_class = NewsPageNumberPagination
+    lookup_field = 'slug'
 
     @list_route()
     def actual(self, request):
@@ -23,8 +29,9 @@ class NewsViewSet(viewsets.ReadOnlyModelViewSet):
     @list_route()
     def archived(self, request):
         """ Новости в архиве """
-        serializer = self.get_serializer(News.objects.archived(), many=True)
-        return Response(serializer.data)
+        page = self.paginate_queryset(News.objects.all())
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
     @list_route()
     def recent(self, request):

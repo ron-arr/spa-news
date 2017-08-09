@@ -9,11 +9,9 @@ class NewsManager(models.Manager):
 
     def actual(self):
         """ Свежие новости """
-        return self.filter(date__gt=days_ago(settings.NEWS_FRESHNESS_DAYS))
-
-    def archived(self):
-        """ Новости в архиве """
-        return self.filter(date__lte=days_ago(settings.NEWS_FRESHNESS_DAYS))
+        return self.filter(
+            date__gt=days_ago(settings.NEWS_FRESHNESS_DAYS)
+        )
 
     def random(self):
         """ Случайные новости """
@@ -42,6 +40,7 @@ class News(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+        ordering = ['-date']
 
     def __unicode__(self):
         return self.name

@@ -1,0 +1,6 @@
+<div>
+    <h1>Home page</h1>
+    <ul>
+        <li ng-repeat="n in $ctrl.news track by $index"><a href="/news/{{ n.slug }}">{{ n.name }}</a></li>
+    </ul>
+</div>

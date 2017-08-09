@@ -1,0 +1,11 @@
+<div class="layout-main">
+    <div class="layout-main__header">
+        <ui-view name="header"></ui-view>
+    </div>
+    <ui-view class="layout-main__body"
+             style="background: url([$ $ctrl.image $]) no-repeat; background-size: 100%; background-position: 0 -25px"
+             name="body"></ui-view>
+    <div ng-if="meta.seo_text" ng-bind-html="meta.seo_text|sanitize"></div>
+    <ui-view class="layout-main__footer"
+             name="footer"></ui-view>
+</div>

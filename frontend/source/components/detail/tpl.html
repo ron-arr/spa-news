@@ -1,0 +1,5 @@
+<div class="static-page">
+    <h1>{{ $ctrl.news.title }}</h1>
+    <span>{{ $ctrl.news.date | date: 'dd.MM.yyyy' }}</span>
+    <div ng-bind-html="$ctrl.news.content"></div>
+</div>

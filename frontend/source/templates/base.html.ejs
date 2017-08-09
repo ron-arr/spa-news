@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<root></root>
+<base href="/">
+<% for (let key in htmlWebpackPlugin.files.js) { %>
+<script src="<%= htmlWebpackPlugin.files.js[key] %>"></script><% } %>
+</body>
+</html>

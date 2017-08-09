@@ -3,3 +3,5 @@
 *.pyc
 .cache/
 *.sqlite3
+node_modules
+frontend/bundle
